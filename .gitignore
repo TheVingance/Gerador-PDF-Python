@@ -1,0 +1,15 @@
+# Ambiente virtual Python
+.venv/
+venv/
+ENV/
+
+# Pastas temporárias do Drive
+.tmp.*/
+
+# PDFs gerados e relatórios (arquivos pesados de saída)
+pdfs_gerados/
+*.tmp
+
+# Cache Python
+__pycache__/
+*.pyc
