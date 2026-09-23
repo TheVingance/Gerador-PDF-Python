@@ -7,7 +7,7 @@ import argparse
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pandas as pd
-from PIL import Image
+from PIL import Image, ImageOps
 from pypdf import PdfReader, PdfWriter
 
 # ORIGEM (Apenas leitura no Google Drive - NUNCA MODIFICAR)
@@ -36,13 +36,32 @@ def normalizar_cpf(val):
     return digits.zfill(11) if digits else ""
 
 def converter_imagem_para_pdf_bytes(caminho_imagem):
-    """Converte imagem (JPG, PNG, JPEG) em bytes de PDF em memoria."""
+    """
+    Converte imagem (JPG, PNG, JPEG) ajustando proporcionalmente ao tamanho padrao A4.
+    Corrige tambem a orientacao via EXIF e centraliza sobre folha branca.
+    """
     try:
         with Image.open(caminho_imagem) as img:
+            # Corrige orientacao de fotos de celular que usam tag EXIF
+            img = ImageOps.exif_transpose(img)
             if img.mode != "RGB":
                 img = img.convert("RGB")
+
+            # Padrao A4 a 150 DPI (1240 x 1754 px) -> exatamente 595 x 842 pt no PDF
+            A4_W, A4_H = 1240, 1754
+            is_landscape = img.width > img.height
+            pw, ph = (A4_H, A4_W) if is_landscape else (A4_W, A4_H)
+
+            # Redimensiona proporcionalmente para caber na folha sem distorcer
+            img.thumbnail((pw, ph), Image.Resampling.LANCZOS)
+
+            # Cria folha A4 branca e centraliza a imagem
+            canvas = Image.new("RGB", (pw, ph), (255, 255, 255))
+            offset = ((pw - img.width) // 2, (ph - img.height) // 2)
+            canvas.paste(img, offset)
+
             pdf_bytes = io.BytesIO()
-            img.save(pdf_bytes, format="PDF", resolution=100.0)
+            canvas.save(pdf_bytes, format="PDF", resolution=150.0, quality=85)
             pdf_bytes.seek(0)
             return pdf_bytes
     except Exception as e:
