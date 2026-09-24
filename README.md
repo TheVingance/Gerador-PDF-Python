@@ -21,12 +21,23 @@ Projeto local para reconciliação de planilhas e consolidação de documentos e
 | Arquivo / Pasta | Descrição |
 | :--- | :--- |
 | **`reconciliar_bases.py`** | Script que lê as planilhas do Drive, cruza `CPF`, completa campos faltantes (`NOME`, `MATRICULA`) e salva a base unificada. |
-| **`gerador_pdf_pessoa.py`** | Script que gera o PDF consolidado de uma pessoa (`{CPF}-{NOME}-roover.pdf`), convertendo imagens e unificando contratos. |
+| **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
 | **`base_consolidada_roover.csv`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
 | **`lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para permitir busca instantânea sem gargalos de rede. |
+| **`relatorio_geracao.csv`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
 | **`pdfs_gerados/`** | Pasta onde são salvos os arquivos PDF gerados. |
 | **`.venv/`** | Ambiente virtual Python com `pandas`, `pypdf`, `Pillow` instalados. |
 | **`requirements.txt`** | Lista de pacotes Python instalados. |
+
+---
+
+## ⚡ Recursos da Geração em Lote
+
+* **Processamento Paralelo (Multi-Worker):** Processa múltiplos cadastros simultaneamente (padrão de 4 workers em threads concorrentes).
+* **Retomada Incremental Inteligente (Resume):** Detecta se o PDF da pessoa já foi gerado na pasta local. Se já existir, pula instantaneamente sem gastar banda de rede ou CPU, permitindo pausar e continuar a qualquer momento.
+* **Gravação Atômica e Segura:** Cria os arquivos temporariamente como `.tmp` e só renomeia para `.pdf` após salvar por completo, impedindo arquivos corrompidos se a execução for interrompida.
+* **Acompanhamento em Tempo Real:** Exibe contador `[X/Total]`, percentual de progresso, status do processamento, número de páginas e tamanho do arquivo.
+* **Relatório Automático:** Registra ao final um arquivo CSV (`relatorio_geracao.csv`) para auditoria dos arquivos gerados, erros e registros sem documentos.
 
 ---
 
@@ -34,23 +45,51 @@ Projeto local para reconciliação de planilhas e consolidação de documentos e
 
 Abra o terminal (PowerShell ou CMD) na pasta `C:\Users\hiurkiv\Documents\roover-python`:
 
-### 1. Gerar PDF de uma pessoa específica por CPF:
-```powershell
-.\.venv\Scripts\python.exe gerador_pdf_pessoa.py --cpf 12345678901
-```
+### 1. Geração em Lote (Toda a Base):
 
-### 2. Gerar PDF por Matrícula:
-```powershell
-.\.venv\Scripts\python.exe gerador_pdf_pessoa.py --matricula 77344
-```
+* **Iniciar processamento em lote da base inteira (4 workers padrão):**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --todos
+  ```
 
-### 3. Modo Interativo:
-```powershell
-.\.venv\Scripts\python.exe gerador_pdf_pessoa.py
-```
-*(O script solicitará o CPF ou Matrícula diretamente no terminal)*
+* **Testar com uma quantidade limitada de pessoas:**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --todos --limite 20
+  ```
 
-### 4. Reexecutar a reconciliação das bases (se as planilhas do Drive forem atualizadas):
+* **Ajustar a quantidade de workers paralelos (ex: 6 workers):**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --todos --workers 6
+  ```
+
+* **Forçar regeração de quem já foi processado:**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --todos --sobrescrever
+  ```
+
+---
+
+### 2. Geração Individual / Testes:
+
+* **Gerar por CPF específico:**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --cpf 12345678901
+  ```
+
+* **Gerar por Matrícula:**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --matricula 77344
+  ```
+
+* **Modo Interativo (digitar no terminal):**
+  ```powershell
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py
+  ```
+
+---
+
+### 3. Reconciliação das Bases (se as planilhas do Drive forem atualizadas):
 ```powershell
 .\.venv\Scripts\python.exe reconciliar_bases.py
 ```
+
