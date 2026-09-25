@@ -13,3 +13,6 @@ pdfs_gerados/
 # Cache Python
 __pycache__/
 *.pyc
+
+# Arquivos temporários do Office / Excel
+~$*

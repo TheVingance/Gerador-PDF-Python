@@ -10,6 +10,12 @@ import pandas as pd
 from PIL import Image, ImageOps
 from pypdf import PdfReader, PdfWriter
 
+try:
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except ImportError:
+    pass
+
 # ORIGEM (Apenas leitura no Google Drive - NUNCA MODIFICAR)
 PASTA_DRIVE = r"G:\.shortcut-targets-by-id\11GxyE8SbWQbCXzoP8f3e9cGFfVK0TIFn\Roover"
 DIR_ADMISSAO = os.path.join(PASTA_DRIVE, "arquivos-admissao")
@@ -163,7 +169,7 @@ def gerar_pdf_pessoa(registro, dir_saida=DIR_SAIDA_PDFS, mapa_admissao=None, ver
                     docs_admissao_incluidos += 1
                     if verbose:
                         print(f"    + Admissao (PDF): {arq} ({len(reader.pages)} paginas)", flush=True)
-                elif ext in [".jpg", ".jpeg", ".png", ".bmp", ".webp"]:
+                elif ext in [".jpg", ".jpeg", ".png", ".bmp", ".webp", ".heic"]:
                     img_bytes = converter_imagem_para_pdf_bytes(caminho_completo)
                     if img_bytes:
                         reader = PdfReader(img_bytes)

@@ -21,13 +21,16 @@ Projeto local para reconciliação de planilhas e consolidação de documentos e
 | Arquivo / Pasta | Descrição |
 | :--- | :--- |
 | **`reconciliar_bases.py`** | Script que lê as planilhas do Drive, cruza `CPF`, completa campos faltantes (`NOME`, `MATRICULA`) e salva a base unificada. |
+| **`gerador_planilha_comparativa.py`** | Script de auditoria que compara `roover-docs-assinados` vs `roover-docs-pessoais`, gerando diagnóstico detalhado de inconsistências. |
 | **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
+| **`comparativo_cadastros_assinados_vs_pessoais.xlsx`** | Planilha executiva comparativa com resumo executivo, cadastros apenas em assinados e apenas em pessoais. |
+| **`cadastros_apenas_em_assinados.csv`** | Exportação CSV direta dos 9.548 colaboradores presentes em assinados e ausentes em admissão. |
 | **`base_consolidada_roover.csv`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
 | **`lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para permitir busca instantânea sem gargalos de rede. |
 | **`relatorio_geracao.csv`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
 | **`pdfs_gerados/`** | Pasta onde são salvos os arquivos PDF gerados. |
-| **`.venv/`** | Ambiente virtual Python com `pandas`, `pypdf`, `Pillow` instalados. |
-| **`requirements.txt`** | Lista de pacotes Python instalados. |
+| **`.venv/`** | Ambiente virtual Python com `pandas`, `pypdf`, `Pillow`, `openpyxl` instalados. |
+| **`requerimentos.txt`** | Lista de pacotes Python instalados. |
 
 ---
 
