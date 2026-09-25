@@ -8,3 +8,5 @@ tzdata==2026.4
 cryptography>=42.0.0
 pillow-heif==1.8.0
 openpyxl==3.1.5
+python-docx>=1.2.0
+matplotlib>=3.10.0
