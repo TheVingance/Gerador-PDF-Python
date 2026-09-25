@@ -10,6 +10,19 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 
 > **Resumo da Auditoria:** Da base de **20.163** colaboradores com contratos assinados, **10.615 (52,6%)** possuem documentação completa de admissão digital e contratos. Os outros **9.548 (47,4%)** possuem contratos assinados arquivados, mas não constam na planilha de admissão (docs-pessoais), em sua grande maioria devido a admissões anteriores à implantação do sistema digital de onboarding. O relatório executivo formal e as planilhas consolidadas estão organizados na pasta [`docs/`](docs/).
 
+### 🏆 Resultado da Auditoria e Processamento da Base
+
+| Categoria | Quantidade | Status |
+| :--- | :---: | :--- |
+| **Total de Colaboradores na Base** | **21.533** | 100% da base processada |
+| **PDFs Finais Gerados no Disco** | **21.146** | **30,66 GB** consolidados e íntegros |
+| **Sem Documentos no Google Drive** | **387** | Cadastros sem contrato nem fotos na nuvem |
+| **Erros de Execução** | **0** | Nenhum arquivo corrompido ou travamento |
+| **Casos Pendentes** | **0** | **100% concluído** |
+
+> **Status do Projeto:**  
+> Todos os colaboradores com documentação física disponível no Google Drive (**21.146 pessoas**) tiveram seus PDFs unificados gerados e validados na pasta local [`pdfs_gerados/`](pdfs_gerados/).
+
 ---
 
 ## 🔒 Diretrizes de Segurança
@@ -34,7 +47,6 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
 | **`grafico_distribuicao_cadastros.png`** | Gráfico analítico de alta resolução em PNG (pizza e barras comparativas). |
 | **`Relatorio_Comparativo_Auditoria.md`** | Relatório de auditoria em Markdown com diagramas Mermaid corrigidos e imagens. |
-| **`Resultado de Auditoria.md`** | Registro de auditoria dos 21.146 PDFs unificados gerados no disco local. |
 | **`docs/`** | Pasta que armazena os relatórios consolidados e planilhas executivas de saída. |
 | ↳ **`docs/Relatorio_Comparativo_docs-roover.docx`** | Relatório executivo formal de auditoria em formato Word com tabelas e gráficos embutidos. |
 | ↳ **`docs/comparativo_cadastros_assinados_vs_pessoais.xlsx`** | Planilha executiva comparativa com resumo executivo, cadastros apenas em assinados e apenas em pessoais. |
