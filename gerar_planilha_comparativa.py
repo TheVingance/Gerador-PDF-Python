@@ -28,8 +28,6 @@ ARQ_PESSOAIS_DRIVE = os.path.join(PASTA_DRIVE, "roover-docs-pessoais.csv")
 
 PASTA_DOCS = os.path.join(PASTA_DESTINO, "docs") if os.path.isdir(os.path.join(PASTA_DESTINO, "docs")) else PASTA_DESTINO
 SAIDA_EXCEL = os.path.join(PASTA_DOCS, "comparativo_cadastros_assinados_vs_pessoais.xlsx")
-SAIDA_EXCEL_APENAS_ASS = os.path.join(PASTA_DOCS, "cadastros_apenas_em_assinados.xlsx")
-SAIDA_CSV = os.path.join(PASTA_DOCS, "cadastros_apenas_em_assinados.csv")
 
 def formatar_data_br(val):
     if pd.isna(val) or not val:
@@ -277,16 +275,8 @@ def gerar_planilhas_comparativas():
     print(f"  -> Divergência de CPF (mesmo nome):         {qtd_divergencia_nome}")
     print(f"Cadastros APENAS em pessoais:                 {len(df_apenas_pess)}")
 
-    # 4. Salvar CSV direto
-    print(f"\n[4/5] Salvando CSV local: {SAIDA_CSV}...")
-    df_csv_export = df_apenas_ass.copy()
-    # Para o Excel abrir diretamente exibindo as datas sem '########' e preservando zeros do CPF:
-    df_csv_export["CPF"] = df_csv_export["CPF"].apply(lambda x: f'="{x}"' if x else "")
-    df_csv_export["ADMISSAO"] = df_csv_export["ADMISSAO"].apply(lambda x: f'="{x}"' if x and x != "Não informada" else x)
-    df_csv_export.to_csv(SAIDA_CSV, index=False, sep=";", encoding="utf-8-sig")
-
-    # 5. Gerar pasta de trabalho Excel estilizada
-    print(f"[5/5] Gerando Excel formatado: {SAIDA_EXCEL}...")
+    # 4. Gerar pasta de trabalho Excel consolidada
+    print(f"\n[4/4] Gerando Excel consolidado: {SAIDA_EXCEL}...")
     wb = openpyxl.Workbook()
     # Remover aba padrao
     wb.remove(wb.active)
@@ -434,42 +424,9 @@ def gerar_planilhas_comparativas():
     except PermissionError:
         print(f"AVISO: O arquivo '{os.path.basename(SAIDA_EXCEL)}' está aberto no Excel. Feche-o para atualizar.")
 
-    # Salvar também Excel dedicado exclusivamente para Cadastros Apenas Assinados
-    print(f"Gerando Excel dedicado: {SAIDA_EXCEL_APENAS_ASS}...")
-    wb_apenas = openpyxl.Workbook()
-    ws_ap = wb_apenas.active
-    ws_ap.title = "Cadastros Apenas Assinados"
-    ws_ap.views.sheetView[0].showGridLines = True
-
-    for c_idx, h in enumerate(cols_apenas_ass, 1):
-        ws_ap.cell(row=1, column=c_idx, value=h)
-
-    for r_idx, row_dict in enumerate(apenas_assinados_rows, 2):
-        ws_ap.cell(row=r_idx, column=1, value=row_dict["CPF"])
-        ws_ap.cell(row=r_idx, column=2, value=row_dict["MATRICULA"])
-        ws_ap.cell(row=r_idx, column=3, value=row_dict["NOME"])
-        ws_ap.cell(row=r_idx, column=4, value=row_dict["ADMISSAO"])
-        ws_ap.cell(row=r_idx, column=5, value=row_dict["QTD_DOCS_ASSINADOS"])
-        ws_ap.cell(row=r_idx, column=6, value=row_dict["STATUS_AUDITORIA"])
-        ws_ap.cell(row=r_idx, column=7, value=row_dict["DETALHE_DIVERGENCIA"])
-        ws_ap.cell(row=r_idx, column=8, value=row_dict["EXEMPLOS_ARQUIVOS_ASSINADOS"])
-
-    aplicar_estilo_tabela(ws_ap, min_row=1, max_row=len(apenas_assinados_rows) + 1, min_col=1, max_col=8,
-                         header_fill=header_navy, header_font=font_header,
-                         col_widths=[16, 16, 38, 16, 20, 36, 50, 50])
-    ws_ap.freeze_panes = "A2"
-    
-    try:
-        wb_apenas.save(SAIDA_EXCEL_APENAS_ASS)
-        print(f"Excel Dedicado salvo: {SAIDA_EXCEL_APENAS_ASS}")
-    except PermissionError:
-        print(f"AVISO: O arquivo '{os.path.basename(SAIDA_EXCEL_APENAS_ASS)}' está aberto no Excel. Feche-o para atualizar.")
-
     print("=" * 70)
-    print(f"PLANILHAS COMPARATIVAS GERADAS COM SUCESSO!")
-    print(f"1. Excel Consolidado (3 abas): {SAIDA_EXCEL}")
-    print(f"2. Excel Focado (Apenas Ass):  {SAIDA_EXCEL_APENAS_ASS}")
-    print(f"3. CSV Focado (Sem '########'): {SAIDA_CSV}")
+    print(f"PLANILHA COMPARATIVA CONSOLIDADA GERADA COM SUCESSO!")
+    print(f"Excel Oficial (3 abas): {SAIDA_EXCEL}")
     print("=" * 70)
 
 if __name__ == "__main__":

@@ -78,14 +78,10 @@ Além dos colaboradores ausentes por admissão antiga, o cruzamento identificou 
 ## 📁 5. Arquivos Gerados no Repositório
 
 1. **Documento Formal em Word (.docx):**  
-   [Relatorio_Comparativo_docs-roover.docx](Relatorio_Comparativo_docs-roover.docx)
-2. **Planilha Excel Executiva com 3 Abas:**  
-   [comparativo_cadastros_assinados_vs_pessoais.xlsx](comparativo_cadastros_assinados_vs_pessoais.xlsx)
-3. **Planilha Excel Focada (Apenas Assinados):**  
-   [cadastros_apenas_em_assinados.xlsx](cadastros_apenas_em_assinados.xlsx)
-4. **Arquivo CSV Direto (Formatado sem `########`):**  
-   [cadastros_apenas_em_assinados.csv](cadastros_apenas_em_assinados.csv)
-4. **Gráfico em Alta Resolução (PNG):**  
+   [docs/Relatorio_Comparativo_docs-roover.docx](docs/Relatorio_Comparativo_docs-roover.docx)
+2. **Planilha Excel Consolidada Oficial (3 Abas):**  
+   [docs/comparativo_cadastros_assinados_vs_pessoais.xlsx](docs/comparativo_cadastros_assinados_vs_pessoais.xlsx)
+3. **Gráfico em Alta Resolução (PNG):**  
    [grafico_distribuicao_cadastros.png](grafico_distribuicao_cadastros.png)
-5. **Script de Auditoria Automatizado:**  
-   [gerar_planilha_comparativa.py](gerar_planilha_comparativa.py)
+4. **Scripts de Auditoria Automatizados:**  
+   [gerar_planilha_comparativa.py](gerar_planilha_comparativa.py) | [gerar_relatorio_word_e_graficos.py](gerar_relatorio_word_e_graficos.py)

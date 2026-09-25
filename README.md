@@ -38,7 +38,6 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | **`docs/`** | Pasta que armazena os relatórios consolidados e planilhas executivas de saída. |
 | ↳ **`docs/Relatorio_Comparativo_docs-roover.docx`** | Relatório executivo formal de auditoria em formato Word com tabelas e gráficos embutidos. |
 | ↳ **`docs/comparativo_cadastros_assinados_vs_pessoais.xlsx`** | Planilha executiva comparativa com resumo executivo, cadastros apenas em assinados e apenas em pessoais. |
-| ↳ **`docs/cadastros_apenas_em_assinados.xlsx`** | Planilha Excel dedicada apenas aos cadastros ausentes em admissão (com colunas pré-ajustadas). |
 | ↳ **`docs/base_consolidada_roover.csv.xlsx`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
 | ↳ **`docs/relatorio_geracao.xlsx`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
 | ↳ **`docs/lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para busca instantânea sem gargalos de rede. |
