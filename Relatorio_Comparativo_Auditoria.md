@@ -78,10 +78,12 @@ Além dos colaboradores ausentes por admissão antiga, o cruzamento identificou 
 ## 📁 5. Arquivos Gerados no Repositório
 
 1. **Documento Formal em Word (.docx):**  
-   [Relatorio_Comparativo_Auditoria.docx](Relatorio_Comparativo_Auditoria.docx)
+   [Relatorio_Comparativo_docs-roover.docx](Relatorio_Comparativo_docs-roover.docx)
 2. **Planilha Excel Executiva com 3 Abas:**  
    [comparativo_cadastros_assinados_vs_pessoais.xlsx](comparativo_cadastros_assinados_vs_pessoais.xlsx)
-3. **Arquivo CSV Direto:**  
+3. **Planilha Excel Focada (Apenas Assinados):**  
+   [cadastros_apenas_em_assinados.xlsx](cadastros_apenas_em_assinados.xlsx)
+4. **Arquivo CSV Direto (Formatado sem `########`):**  
    [cadastros_apenas_em_assinados.csv](cadastros_apenas_em_assinados.csv)
 4. **Gráfico em Alta Resolução (PNG):**  
    [grafico_distribuicao_cadastros.png](grafico_distribuicao_cadastros.png)

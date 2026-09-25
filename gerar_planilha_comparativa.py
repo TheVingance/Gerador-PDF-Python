@@ -27,7 +27,17 @@ ARQ_ASSINADOS_DRIVE = os.path.join(PASTA_DRIVE, "roover-docs-assinados.csv")
 ARQ_PESSOAIS_DRIVE = os.path.join(PASTA_DRIVE, "roover-docs-pessoais.csv")
 
 SAIDA_EXCEL = os.path.join(PASTA_DESTINO, "comparativo_cadastros_assinados_vs_pessoais.xlsx")
+SAIDA_EXCEL_APENAS_ASS = os.path.join(PASTA_DESTINO, "cadastros_apenas_em_assinados.xlsx")
 SAIDA_CSV = os.path.join(PASTA_DESTINO, "cadastros_apenas_em_assinados.csv")
+
+def formatar_data_br(val):
+    if pd.isna(val) or not val:
+        return ""
+    val_str = str(val).strip()
+    if len(val_str) == 10 and val_str[4] == "-" and val_str[7] == "-":
+        partes = val_str.split("-")
+        return f"{partes[2]}/{partes[1]}/{partes[0]}"
+    return val_str
 
 def normalizar_cpf(val):
     if pd.isna(val):
@@ -167,7 +177,7 @@ def gerar_planilhas_comparativas():
 
         adm = str(row["ADMISSAO"]).strip() if pd.notna(row["ADMISSAO"]) and str(row["ADMISSAO"]).strip() != "" else None
         if adm and adm.lower() != "roover":
-            ass_grouped[cpf]["ADMISSOES"].add(adm)
+            ass_grouped[cpf]["ADMISSOES"].add(formatar_data_br(adm))
 
         arq = str(row["ARQUIVO"]).strip() if pd.notna(row.get("ARQUIVO")) else None
         if arq:
@@ -268,7 +278,11 @@ def gerar_planilhas_comparativas():
 
     # 4. Salvar CSV direto
     print(f"\n[4/5] Salvando CSV local: {SAIDA_CSV}...")
-    df_apenas_ass.to_csv(SAIDA_CSV, index=False, sep=";", encoding="utf-8-sig")
+    df_csv_export = df_apenas_ass.copy()
+    # Para o Excel abrir diretamente exibindo as datas sem '########' e preservando zeros do CPF:
+    df_csv_export["CPF"] = df_csv_export["CPF"].apply(lambda x: f'="{x}"' if x else "")
+    df_csv_export["ADMISSAO"] = df_csv_export["ADMISSAO"].apply(lambda x: f'="{x}"' if x and x != "Não informada" else x)
+    df_csv_export.to_csv(SAIDA_CSV, index=False, sep=";", encoding="utf-8-sig")
 
     # 5. Gerar pasta de trabalho Excel estilizada
     print(f"[5/5] Gerando Excel formatado: {SAIDA_EXCEL}...")
@@ -412,12 +426,49 @@ def gerar_planilhas_comparativas():
 
     ws_apenas_pess.freeze_panes = "A2"
 
-    # Salvar
-    wb.save(SAIDA_EXCEL)
+    # Salvar Excel Consolidado (3 abas)
+    try:
+        wb.save(SAIDA_EXCEL)
+        print(f"Excel Consolidado salvo: {SAIDA_EXCEL}")
+    except PermissionError:
+        print(f"AVISO: O arquivo '{os.path.basename(SAIDA_EXCEL)}' está aberto no Excel. Feche-o para atualizar.")
+
+    # Salvar também Excel dedicado exclusivamente para Cadastros Apenas Assinados
+    print(f"Gerando Excel dedicado: {SAIDA_EXCEL_APENAS_ASS}...")
+    wb_apenas = openpyxl.Workbook()
+    ws_ap = wb_apenas.active
+    ws_ap.title = "Cadastros Apenas Assinados"
+    ws_ap.views.sheetView[0].showGridLines = True
+
+    for c_idx, h in enumerate(cols_apenas_ass, 1):
+        ws_ap.cell(row=1, column=c_idx, value=h)
+
+    for r_idx, row_dict in enumerate(apenas_assinados_rows, 2):
+        ws_ap.cell(row=r_idx, column=1, value=row_dict["CPF"])
+        ws_ap.cell(row=r_idx, column=2, value=row_dict["MATRICULA"])
+        ws_ap.cell(row=r_idx, column=3, value=row_dict["NOME"])
+        ws_ap.cell(row=r_idx, column=4, value=row_dict["ADMISSAO"])
+        ws_ap.cell(row=r_idx, column=5, value=row_dict["QTD_DOCS_ASSINADOS"])
+        ws_ap.cell(row=r_idx, column=6, value=row_dict["STATUS_AUDITORIA"])
+        ws_ap.cell(row=r_idx, column=7, value=row_dict["DETALHE_DIVERGENCIA"])
+        ws_ap.cell(row=r_idx, column=8, value=row_dict["EXEMPLOS_ARQUIVOS_ASSINADOS"])
+
+    aplicar_estilo_tabela(ws_ap, min_row=1, max_row=len(apenas_assinados_rows) + 1, min_col=1, max_col=8,
+                         header_fill=header_navy, header_font=font_header,
+                         col_widths=[16, 16, 38, 16, 20, 36, 50, 50])
+    ws_ap.freeze_panes = "A2"
+    
+    try:
+        wb_apenas.save(SAIDA_EXCEL_APENAS_ASS)
+        print(f"Excel Dedicado salvo: {SAIDA_EXCEL_APENAS_ASS}")
+    except PermissionError:
+        print(f"AVISO: O arquivo '{os.path.basename(SAIDA_EXCEL_APENAS_ASS)}' está aberto no Excel. Feche-o para atualizar.")
+
     print("=" * 70)
     print(f"PLANILHAS COMPARATIVAS GERADAS COM SUCESSO!")
-    print(f"1. Excel Consolidado: {SAIDA_EXCEL}")
-    print(f"2. CSV Focado:        {SAIDA_CSV}")
+    print(f"1. Excel Consolidado (3 abas): {SAIDA_EXCEL}")
+    print(f"2. Excel Focado (Apenas Ass):  {SAIDA_EXCEL_APENAS_ASS}")
+    print(f"3. CSV Focado (Sem '########'): {SAIDA_CSV}")
     print("=" * 70)
 
 if __name__ == "__main__":
