@@ -21,7 +21,7 @@ from docx.oxml.ns import nsdecls, qn
 
 PASTA_LOCAL = r"C:\Users\hiurkiv\Documents\roover-python"
 IMG_GRAFICO = os.path.join(PASTA_LOCAL, "grafico_distribuicao_cadastros.png")
-DOCX_RELATORIO = os.path.join(PASTA_LOCAL, "Relatorio_Comparativo_Auditoria.docx")
+DOCX_RELATORIO = os.path.join(PASTA_LOCAL, "docs", "Relatorio_Comparativo_docs-roover.docx") if os.path.isdir(os.path.join(PASTA_LOCAL, "docs")) else os.path.join(PASTA_LOCAL, "Relatorio_Comparativo_docs-roover.docx")
 MD_RELATORIO = os.path.join(PASTA_LOCAL, "Relatorio_Comparativo_Auditoria.md")
 
 # ==============================================================================

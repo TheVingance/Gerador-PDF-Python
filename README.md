@@ -4,6 +4,14 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 
 ---
 
+## 📊 Distribuição dos Cadastros e Auditoria
+
+![Gráfico de Distribuição dos Cadastros](grafico_distribuicao_cadastros.png)
+
+> **Resumo da Auditoria:** Da base de **20.163** colaboradores com contratos assinados, **10.615 (52,6%)** possuem documentação completa de admissão digital e contratos. Os outros **9.548 (47,4%)** possuem contratos assinados arquivados, mas não constam na planilha de admissão (docs-pessoais), em sua grande maioria devido a admissões anteriores à implantação do sistema digital de onboarding. O relatório executivo formal e as planilhas consolidadas estão organizados na pasta [`docs/`](docs/).
+
+---
+
 ## 🔒 Diretrizes de Segurança
 
 * **Pasta de Origem (Apenas Leitura no Google Drive):**
@@ -24,15 +32,16 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | **`gerador_planilha_comparativa.py`** | Script de auditoria que compara `roover-docs-assinados` vs `roover-docs-pessoais`, gerando diagnóstico detalhado de inconsistências. |
 | **`gerar_relatorio_word_e_graficos.py`** | Script que gera o gráfico analítico em PNG, o relatório formatado em Word (.docx) e o Markdown (.md). |
 | **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
-| **`Relatorio_Comparativo_docs-roover.docx`** | Relatório executivo formal de auditoria em formato Word com tabelas e gráficos embutidos. |
-| **`Relatorio_Comparativo_Auditoria.md`** | Relatório de auditoria em Markdown com diagramas Mermaid corrigidos e imagens. |
 | **`grafico_distribuicao_cadastros.png`** | Gráfico analítico de alta resolução em PNG (pizza e barras comparativas). |
-| **`comparativo_cadastros_assinados_vs_pessoais.xlsx`** | Planilha executiva comparativa com resumo executivo, cadastros apenas em assinados e apenas em pessoais. |
-| **`cadastros_apenas_em_assinados.xlsx`** | Planilha Excel dedicada apenas aos cadastros ausentes em admissão (com colunas pré-ajustadas). |
-| **`cadastros_apenas_em_assinados.csv`** | Exportação CSV direta dos 9.548 colaboradores presentes em assinados e ausentes em admissão (formatado sem `########`). |
-| **`base_consolidada_roover.csv`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
-| **`lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para permitir busca instantânea sem gargalos de rede. |
-| **`relatorio_geracao.csv`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
+| **`Relatorio_Comparativo_Auditoria.md`** | Relatório de auditoria em Markdown com diagramas Mermaid corrigidos e imagens. |
+| **`Resultado de Auditoria.md`** | Registro de auditoria dos 21.146 PDFs unificados gerados no disco local. |
+| **`docs/`** | Pasta que armazena os relatórios consolidados e planilhas executivas de saída. |
+| ↳ **`docs/Relatorio_Comparativo_docs-roover.docx`** | Relatório executivo formal de auditoria em formato Word com tabelas e gráficos embutidos. |
+| ↳ **`docs/comparativo_cadastros_assinados_vs_pessoais.xlsx`** | Planilha executiva comparativa com resumo executivo, cadastros apenas em assinados e apenas em pessoais. |
+| ↳ **`docs/cadastros_apenas_em_assinados.xlsx`** | Planilha Excel dedicada apenas aos cadastros ausentes em admissão (com colunas pré-ajustadas). |
+| ↳ **`docs/base_consolidada_roover.csv.xlsx`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
+| ↳ **`docs/relatorio_geracao.xlsx`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
+| ↳ **`docs/lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para busca instantânea sem gargalos de rede. |
 | **`pdfs_gerados/`** | Pasta onde são salvos os arquivos PDF gerados. |
 | **`.venv/`** | Ambiente virtual Python com `pandas`, `pypdf`, `Pillow`, `openpyxl`, `python-docx`, `matplotlib` instalados. |
 | **`requerimentos.txt`** | Lista de pacotes Python instalados. |

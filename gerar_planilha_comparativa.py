@@ -26,9 +26,10 @@ PASTA_DESTINO = r"C:\Users\hiurkiv\Documents\roover-python"
 ARQ_ASSINADOS_DRIVE = os.path.join(PASTA_DRIVE, "roover-docs-assinados.csv")
 ARQ_PESSOAIS_DRIVE = os.path.join(PASTA_DRIVE, "roover-docs-pessoais.csv")
 
-SAIDA_EXCEL = os.path.join(PASTA_DESTINO, "comparativo_cadastros_assinados_vs_pessoais.xlsx")
-SAIDA_EXCEL_APENAS_ASS = os.path.join(PASTA_DESTINO, "cadastros_apenas_em_assinados.xlsx")
-SAIDA_CSV = os.path.join(PASTA_DESTINO, "cadastros_apenas_em_assinados.csv")
+PASTA_DOCS = os.path.join(PASTA_DESTINO, "docs") if os.path.isdir(os.path.join(PASTA_DESTINO, "docs")) else PASTA_DESTINO
+SAIDA_EXCEL = os.path.join(PASTA_DOCS, "comparativo_cadastros_assinados_vs_pessoais.xlsx")
+SAIDA_EXCEL_APENAS_ASS = os.path.join(PASTA_DOCS, "cadastros_apenas_em_assinados.xlsx")
+SAIDA_CSV = os.path.join(PASTA_DOCS, "cadastros_apenas_em_assinados.csv")
 
 def formatar_data_br(val):
     if pd.isna(val) or not val:
