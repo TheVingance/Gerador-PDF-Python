@@ -1,6 +1,6 @@
-# Roover Python - Processador de Documentos e PDFs
+# Gerador-PDF-Python (Roover)
 
-Projeto local para reconciliação de planilhas e consolidação de documentos em arquivos PDF unificados por pessoa.
+Código em Python que compara duas planilhas na nuvem (Google Drive), faz um relacionamento de documentos entre duas pastas e salva em PDFs unificados por pessoa, além de gerar auditoria comparativa de cadastros.
 
 ---
 
@@ -96,3 +96,7 @@ Abra o terminal (PowerShell ou CMD) na pasta `C:\Users\hiurkiv\Documents\roover-
 .\.venv\Scripts\python.exe reconciliar_bases.py
 ```
 
+### 4. Gerar Planilha Comparativa e Auditoria (Assinados vs Pessoais):
+```powershell
+.\.venv\Scripts\python.exe gerar_planilha_comparativa.py
+```
