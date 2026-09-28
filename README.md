@@ -45,6 +45,7 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | **`gerador_planilha_comparativa.py`** | Script de auditoria que compara `roover-docs-assinados` vs `roover-docs-pessoais`, gerando diagnóstico detalhado de inconsistências. |
 | **`gerar_relatorio_word_e_graficos.py`** | Script que gera o gráfico analítico em PNG, o relatório formatado em Word (.docx) e o Markdown (.md). |
 | **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
+| **`limpar_duplicados_drive.py`** | Script de auditoria e remoção segura de arquivos duplicados `' (1).pdf'` no Google Drive, garantindo preservação do original. |
 | **`grafico_distribuicao_cadastros.png`** | Gráfico analítico de alta resolução em PNG (pizza e barras comparativas). |
 | **`Relatorio_Comparativo_Auditoria.md`** | Relatório de auditoria em Markdown com diagramas Mermaid corrigidos e imagens. |
 | **`docs/`** | Pasta que armazena os relatórios consolidados e planilhas executivas de saída. |
@@ -125,3 +126,14 @@ Abra o terminal (PowerShell ou CMD) na pasta `C:\Users\hiurkiv\Documents\roover-
 ```powershell
 .\.venv\Scripts\python.exe gerar_planilha_comparativa.py
 ```
+
+### 5. Limpeza Segura de Duplicados no Google Drive:
+* **Modo Simulação (Auditoria/Dry Run sem exclusão):**
+  ```powershell
+  .\.venv\Scripts\python.exe limpar_duplicados_drive.py
+  ```
+
+* **Modo Execução com Confirmação:**
+  ```powershell
+  .\.venv\Scripts\python.exe limpar_duplicados_drive.py --executar
+  ```
