@@ -46,6 +46,7 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | **`gerar_relatorio_word_e_graficos.py`** | Script que gera o gráfico analítico em PNG, o relatório formatado em Word (.docx) e o Markdown (.md). |
 | **`gerador_pdf_pessoa.py`** | Script de consolidação de documentos e geração de PDFs (`{CPF}-{NOME}-roover.pdf`), com suporte a consultas individuais ou processamento em lote paralelo (multi-workers). |
 | **`limpar_duplicados_drive.py`** | Script de auditoria e remoção segura de arquivos duplicados `' (1).pdf'` no Google Drive, garantindo preservação do original. |
+| **`separar_faltantes.py`** | Script que audita os arquivos presentes no Drive vs local e separa apenas os faltantes em lotes organizados para upload sem travamento. |
 | **`grafico_distribuicao_cadastros.png`** | Gráfico analítico de alta resolução em PNG (pizza e barras comparativas). |
 | **`Relatorio_Comparativo_Auditoria.md`** | Relatório de auditoria em Markdown com diagramas Mermaid corrigidos e imagens. |
 | **`docs/`** | Pasta que armazena os relatórios consolidados e planilhas executivas de saída. |
@@ -137,3 +138,9 @@ Abra o terminal (PowerShell ou CMD) na pasta `C:\Users\hiurkiv\Documents\roover-
   ```powershell
   .\.venv\Scripts\python.exe limpar_duplicados_drive.py --executar
   ```
+
+### 6. Identificar e Separar Arquivos Faltantes para Upload:
+```powershell
+.\.venv\Scripts\python.exe separar_faltantes.py
+```
+*(Gera os arquivos faltantes organizados em lotes dentro de `faltantes_para_upload/`, ignorada pelo Git).*

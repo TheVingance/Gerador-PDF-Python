@@ -16,3 +16,7 @@ __pycache__/
 
 # Arquivos temporários do Office / Excel
 ~$*
+
+# Lotes temporários para upload
+faltantes_para_upload/
+
