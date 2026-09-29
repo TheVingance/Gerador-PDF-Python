@@ -20,3 +20,8 @@ __pycache__/
 # Lotes temporários para upload
 faltantes_para_upload/
 
+# Arquivos compactados e backups de teste
+*.zip
+pdfs_gerados.zip
+
+

@@ -55,6 +55,8 @@ Código em Python que compara duas planilhas na nuvem (Google Drive), faz um rel
 | ↳ **`docs/base_consolidada_roover.csv.xlsx`** | Planilha consolidada com 21.533 colaboradores, status de documentos e dados cruzados. |
 | ↳ **`docs/relatorio_geracao.xlsx`** | Relatório gerado ao término do lote com o status individual, total de páginas, tamanho e tempo de cada PDF processado. |
 | ↳ **`docs/lista_admissao.txt`** | Índice local com a lista de arquivos da pasta `arquivos-admissao` para busca instantânea sem gargalos de rede. |
+| ↳ **`docs/Walkthrough_Geracao_PDFs_Lote.md`** | Passo a passo e documentação técnica da geração em lote com multi-workers. |
+| ↳ **`docs/Walkthrough_Reconciliacao_Planilhas.md`** | Passo a passo técnico da reconciliação de planilhas e geração do PDF unificado. |
 | **`pdfs_gerados/`** | Pasta onde são salvos os arquivos PDF gerados. |
 | **`.venv/`** | Ambiente virtual Python com `pandas`, `pypdf`, `Pillow`, `openpyxl`, `python-docx`, `matplotlib` instalados. |
 | **`requerimentos.txt`** | Lista de pacotes Python instalados. |
