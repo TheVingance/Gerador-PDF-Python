@@ -24,4 +24,18 @@ faltantes_para_upload/
 *.zip
 pdfs_gerados.zip
 
+# Bases de dados, planilhas e relatórios de auditoria (dados sensíveis LGPD)
+*.xlsx
+*.csv
+*.docx
+docs/*.xlsx
+docs/*.docx
+docs/*.txt
+docs/*.csv
+lista_admissao.txt
+relatorio_geracao.*
+base_consolidada_roover.*
+comparativo_cadastros_*
+cadastros_apenas_*
+
 

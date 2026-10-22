@@ -184,7 +184,7 @@ def gerar_word():
 
     p_intro = doc.add_paragraph(
         "Durante a validação dos PDFs gerados em lote, foi identificada a ausência de documentos "
-        "de admissão para determinados colaboradores (como nos casos de colaboradores admitidos antes da digitalização). "
+        "de admissão para determinados colaboradores admitidos antes da digitalização dos processos de onboarding. "
         "O cruzamento das duas bases primárias revelou a seguinte composição:"
     )
     p_intro.paragraph_format.space_after = Pt(10)
@@ -264,22 +264,22 @@ def gerar_word():
 
     doc.add_paragraph().paragraph_format.space_after = Pt(12)
 
-    # 2. O Caso Admissão Histórica
+    # 2. Exemplo Prático de Admissão Histórica
     h2 = doc.add_heading(level=1)
-    r_h2 = h2.add_run("2. Diagnóstico Prático: O Exemplo de Admissões Históricas")
+    r_h2 = h2.add_run("2. Diagnóstico Prático: Exemplo de Admissões Históricas")
     r_h2.font.name = "Calibri"
     r_h2.font.size = Pt(14)
     r_h2.font.bold = True
     r_h2.font.color.rgb = COLOR_PRIMARY
 
     p_ros = doc.add_paragraph(
-        "Durante a demonstração à chefia, foi levantada a situação da colaboradora exemplo. "
-        "A auditoria identificou que constam 2 colaboradoras distintas com esse primeiro nome na base de assinados, "
-        "e nenhuma das duas possui qualquer registro na planilha de documentos pessoais:"
+        "Durante a validação com a liderança, foi analisada a situação de colaboradores com admissão anterior "
+        "à implantação dos processos digitais. Como exemplo ilustrativo, foram identificados colaboradores na base de assinados "
+        "que não possuem cadastro na planilha de documentos pessoais:"
     )
     p_ros.paragraph_format.space_after = Pt(8)
 
-    # Tabela Admissão Histórica
+    # Tabela Exemplo Admissao Historica
     table_ros = doc.add_table(rows=1, cols=6)
     table_ros.alignment = WD_TABLE_ALIGNMENT.CENTER
     table_ros.autofit = False
@@ -300,8 +300,8 @@ def gerar_word():
             run.font.size = Pt(9.5)
 
     dados_ros = [
-        ("11122233344", "7421", "COLABORADOR EXEMPLO A", "01/08/2003", "7", "NÃO CONSTA em roover-docs-pessoais"),
-        ("55566677788", "13117", "COLABORADOR EXEMPLO B", "25/11/2008", "5", "NÃO CONSTA em roover-docs-pessoais")
+        ("11122233344", "1001", "COLABORADOR EXEMPLO A", "01/08/2003", "7", "NÃO CONSTA em roover-docs-pessoais"),
+        ("55566677788", "1002", "COLABORADOR EXEMPLO B", "25/11/2008", "5", "NÃO CONSTA em roover-docs-pessoais")
     ]
 
     for row_idx, r_vals in enumerate(dados_ros):
@@ -329,9 +329,9 @@ def gerar_word():
     r_exp_t.font.bold = True
     r_exp_t.font.size = Pt(10)
     p_exp.add_run(
-        "1. As admissões de ambas ocorreram em 2003 e 2008, anos anteriores à implantação do sistema digital de onboarding.\n"
+        "1. As admissões ocorreram em anos anteriores à implantação do sistema digital de onboarding.\n"
         "2. Como não passaram pelo fluxo de admissão eletrônico, seus documentos físicos não foram carregados no repositório de admissão (arquivos-admissao).\n"
-        "3. Posteriormente, elas assinaram contratos e aditivos eletrônicos, motivo pelo qual constam normalmente na planilha de contratos assinados.\n"
+        "3. Posteriormente, foram assinados contratos e aditivos eletrônicos, motivo pelo qual constam normalmente na planilha de contratos assinados.\n"
         "4. O gerador de PDF agiu com total integridade: como não havia fotos de admissão, consolidou com sucesso todos os contratos assinados disponíveis, gerando o PDF íntegro."
     ).font.size = Pt(9.5)
 
@@ -350,7 +350,7 @@ def gerar_word():
         "mas não foram correlacionados pelo CPF devido a erros de digitação ou cadastros divergentes entre sistemas:\n\n"
         "• 42 colaboradores possuem Matrícula idêntica em ambas as planilhas, mas o CPF difere.\n"
         "• 62 colaboradores possuem Nome Completo idêntico, mas com CPF registrado diferente.\n\n"
-        "Exemplo real detectado: O colaborador COLABORADOR EXEMPLO C (Matrícula 75003) consta em assinados com CPF 11122233344 e em pessoais com CPF 11122233345 (diferença de apenas 1 dígito). "
+        "Exemplo ilustrativo detectado: Um colaborador com Matrícula 12345 consta em assinados com CPF 11122233344 e em pessoais com CPF 11122233345 (diferença de apenas 1 dígito de digitação). "
         "Todos esses 104 casos foram marcados com destaque visual em amarelo na planilha Excel gerada para saneamento pelo RH/TI."
     )
     p_div.paragraph_format.space_after = Pt(12)
@@ -390,7 +390,7 @@ def gerar_markdown():
 
 ## 📌 1. Visão Geral da Análise
 
-Durante a conferência dos PDFs gerados com a liderança, foi identificada a ausência de documentos pessoais/admissão para determinados colaboradores (como nos casos de admissões anteriores à digitalização).
+Durante a conferência dos PDFs gerados com a liderança, foi identificada a ausência de documentos pessoais/admissão para determinados colaboradores admitidos antes da digitalização dos processos de onboarding.
 
 Ao cruzar as duas fontes primárias do Google Drive:
 1. `roover-docs-assinados.csv` (231.729 registros de contratos e termos assinados)
@@ -427,19 +427,19 @@ pie title "Cadastros em Assinados (Total: 20.163)"
 
 ---
 
-## 🔍 3. Análise Prática: O Exemplo de Admissões Históricas
+## 🔍 3. Análise Prática: Exemplo de Admissões Históricas
 
-Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam **duas colaboradoras** com o primeiro nome Admissão Histórica:
+Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam colaboradores admitidos em períodos históricos:
 
 | CPF | Matrícula | Nome Completo | Data Admissão | Qtd Docs Assinados | Presença em `docs-pessoais` |
 | :---: | :---: | :--- | :---: | :---: | :--- |
-| `11122233344` | `7421` | **COLABORADOR EXEMPLO A** | 01/08/2003 | 7 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
-| `55566677788` | `13117` | **COLABORADOR EXEMPLO B** | 25/11/2008 | 5 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
+| `11122233344` | `1001` | **COLABORADOR EXEMPLO A** | 01/08/2003 | 7 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
+| `55566677788` | `1002` | **COLABORADOR EXEMPLO B** | 25/11/2008 | 5 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
 
 ### Motivo Técnico da Inconsistência
-1. **Admissões Históricas:** Ambas foram admitidas há muitos anos (**2003** e **2008**), data muito anterior à digitalização do sistema de onboarding (`arquivos-admissao`).
+1. **Admissões Históricas:** As admissões ocorreram há muitos anos (**2003** e **2008**), data anterior à digitalização do sistema de onboarding (`arquivos-admissao`).
 2. **Ausência de Documentos Físicos Digitalizados:** Por não terem passado pelo processo eletrônico de admissão, não há pastas com prefixo `{ID_SISTEMICO}_` na nuvem.
-3. **Assinaturas Eletrônicas Recentes:** Posteriormente, ambas assinaram termos e contratos eletrônicos, motivo pelo qual constam com 7 e 5 arquivos na planilha de assinados.
+3. **Assinaturas Eletrônicas Recentes:** Posteriormente, foram assinados termos e contratos eletrônicos, motivo pelo qual constam com 7 e 5 arquivos na planilha de assinados.
 4. **Comportamento do Gerador:** O gerador de PDF agiu corretamente: unificou com sucesso todos os contratos assinados existentes, ficando apenas sem a seção de admissão.
 
 ---
@@ -449,10 +449,10 @@ Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam **duas
 Além dos colaboradores ausentes por admissão antiga, o cruzamento identificou **104 casos** onde o colaborador existe em ambas as planilhas, mas não se cruzavam automaticamente devido a divergências no CPF:
 
 > [!TIP]
-> **Exemplo Real Detectado:**  
-> O colaborador **COLABORADOR EXEMPLO C** (Matrícula `75003`):  
+> **Exemplo Ilustrativo Detectado:**  
+> Um colaborador com Matrícula `12345`:  
 > - Em `roover-docs-assinados`: CPF cadastrado como `11122233344`  
-> - Em `roover-docs-pessoais`: CPF cadastrado como `11122233345` (diferença de apenas 1 dígito: 6 vs 5, ID Sistêmico `3296`)  
+> - Em `roover-docs-pessoais`: CPF cadastrado como `11122233345` (diferença de apenas 1 dígito de digitação)  
 > 
 > Todos esses casos foram sinalizados com status destacado em amarelo na planilha gerada, com o detalhe da matrícula e ID Sistêmico para que a equipe de RH/TI possa efetuar o saneamento cadastral.
 

@@ -109,7 +109,7 @@ Abra o terminal (PowerShell ou CMD) na pasta `C:\Users\hiurkiv\Documents\roover-
 
 * **Gerar por Matrícula:**
   ```powershell
-  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --matricula 77344
+  .\.venv\Scripts\python.exe gerador_pdf_pessoa.py --matricula 12345
   ```
 
 * **Modo Interativo (digitar no terminal):**

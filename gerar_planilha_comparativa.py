@@ -327,11 +327,11 @@ def gerar_planilhas_comparativas():
                          header_fill=header_navy, header_font=font_header,
                          col_widths=[62, 18, 45])
 
-    # Exemplo Admissão Histórica em destaque
+    # Exemplo de admissão histórica em destaque
     ws_resumo["A15"] = "CASO PRÁTICO ANALISADO: EXEMPLO DE ADMISSÕES HISTÓRICAS"
     ws_resumo["A15"].font = Font(name="Calibri", size=13, bold=True, color="1F4E78")
 
-    ws_resumo["A16"] = "Foram identificadas 2 colaboradores com admissões anteriores à digitalização na planilha roover-docs-assinados:"
+    ws_resumo["A16"] = "Exemplo de colaboradores admitidos antes da digitalização na planilha roover-docs-assinados:"
     ws_resumo["A16"].font = Font(name="Calibri", size=10, italic=True)
 
     exemplo_headers = ["CPF", "Matrícula", "Nome Completo", "Data Admissão", "Docs Assinados", "Status em Pessoais"]
@@ -342,8 +342,8 @@ def gerar_planilhas_comparativas():
         cell.alignment = Alignment(horizontal="center")
 
     exemplo_dados = [
-        ("11122233344", "7421", "COLABORADOR EXEMPLO A", "2003-08-01", 7, "NÃO CONSTA em roover-docs-pessoais"),
-        ("55566677788", "13117", "COLABORADOR EXEMPLO B", "2008-11-25", 5, "NÃO CONSTA em roover-docs-pessoais")
+        ("11122233344", "1001", "COLABORADOR EXEMPLO A", "2003-08-01", 7, "NÃO CONSTA em roover-docs-pessoais"),
+        ("55566677788", "1002", "COLABORADOR EXEMPLO B", "2008-11-25", 5, "NÃO CONSTA em roover-docs-pessoais")
     ]
     for r_idx, r_data in enumerate(exemplo_dados, 19):
         for c_idx, val in enumerate(r_data, 1):

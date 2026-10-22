@@ -7,7 +7,7 @@
 
 ## 📌 1. Visão Geral da Análise
 
-Durante a conferência dos PDFs gerados com a liderança, foi identificada a ausência de documentos pessoais/admissão para determinados colaboradores (como nos casos de admissões anteriores à digitalização).
+Durante a conferência dos PDFs gerados com a liderança, foi identificada a ausência de documentos pessoais/admissão para determinados colaboradores admitidos antes da digitalização dos processos de onboarding.
 
 Ao cruzar as duas fontes primárias do Google Drive:
 1. `roover-docs-assinados.csv` (231.729 registros de contratos e termos assinados)
@@ -44,19 +44,19 @@ pie title "Cadastros em Assinados (Total: 20.163)"
 
 ---
 
-## 🔍 3. Análise Prática: O Exemplo de Admissões Históricas
+## 🔍 3. Análise Prática: Exemplo de Admissões Históricas
 
-Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam **duas colaboradoras** com o primeiro nome Admissão Histórica:
+Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam colaboradores admitidos em períodos históricos:
 
 | CPF | Matrícula | Nome Completo | Data Admissão | Qtd Docs Assinados | Presença em `docs-pessoais` |
 | :---: | :---: | :--- | :---: | :---: | :--- |
-| `11122233344` | `7421` | **COLABORADOR EXEMPLO A** | 01/08/2003 | 7 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
-| `55566677788` | `13117` | **COLABORADOR EXEMPLO B** | 25/11/2008 | 5 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
+| `11122233344` | `1001` | **COLABORADOR EXEMPLO A** | 01/08/2003 | 7 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
+| `55566677788` | `1002` | **COLABORADOR EXEMPLO B** | 25/11/2008 | 5 contratos | ❌ **Ausente** (não consta CPF, Matrícula nem Nome) |
 
 ### Motivo Técnico da Inconsistência
-1. **Admissões Históricas:** Ambas foram admitidas há muitos anos (**2003** e **2008**), data muito anterior à digitalização do sistema de onboarding (`arquivos-admissao`).
+1. **Admissões Históricas:** As admissões ocorreram há muitos anos (**2003** e **2008**), data anterior à digitalização do sistema de onboarding (`arquivos-admissao`).
 2. **Ausência de Documentos Físicos Digitalizados:** Por não terem passado pelo processo eletrônico de admissão, não há pastas com prefixo `{ID_SISTEMICO}_` na nuvem.
-3. **Assinaturas Eletrônicas Recentes:** Posteriormente, ambas assinaram termos e contratos eletrônicos, motivo pelo qual constam com 7 e 5 arquivos na planilha de assinados.
+3. **Assinaturas Eletrônicas Recentes:** Posteriormente, foram assinados termos e contratos eletrônicos, motivo pelo qual constam com 7 e 5 arquivos na planilha de assinados.
 4. **Comportamento do Gerador:** O gerador de PDF agiu corretamente: unificou com sucesso todos os contratos assinados existentes, ficando apenas sem a seção de admissão.
 
 ---
@@ -66,10 +66,10 @@ Na planilha de contratos assinados (`roover-docs-assinados.csv`), constam **duas
 Além dos colaboradores ausentes por admissão antiga, o cruzamento identificou **104 casos** onde o colaborador existe em ambas as planilhas, mas não se cruzavam automaticamente devido a divergências no CPF:
 
 > [!TIP]
-> **Exemplo Real Detectado:**  
-> O colaborador **COLABORADOR EXEMPLO C** (Matrícula `75003`):  
+> **Exemplo Ilustrativo Detectado:**  
+> Um colaborador com Matrícula `12345`:  
 > - Em `roover-docs-assinados`: CPF cadastrado como `11122233344`  
-> - Em `roover-docs-pessoais`: CPF cadastrado como `11122233345` (diferença de apenas 1 dígito: 6 vs 5, ID Sistêmico `3296`)  
+> - Em `roover-docs-pessoais`: CPF cadastrado como `11122233345` (diferença de apenas 1 dígito de digitação)  
 > 
 > Todos esses casos foram sinalizados com status destacado em amarelo na planilha gerada, com o detalhe da matrícula e ID Sistêmico para que a equipe de RH/TI possa efetuar o saneamento cadastral.
 
